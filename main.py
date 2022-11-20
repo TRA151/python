@@ -46,8 +46,6 @@ class VkRequest:
                   'rev': 1
                   }
         resp = requests.get(url, params=params)
-        if resp.status_code != 200:
-            print('Ошибка. Запрос не обработан')
         photo_info = requests.get(url, params={**self.start_params, **params}).json()['response']
         return photo_info['count'], photo_info['items']
 
@@ -108,8 +106,6 @@ class Yandex:
         url = "https://cloud-api.yandex.net/v1/disk/resources"
         params = {'path': folder_name}
         resource = requests.get(url, headers=self.headers, params=params)
-        if resource.status_code != 200:
-            print('Ошибка получения ссылки для загрузки')
         resource = requests.get(url, headers=self.headers, params=params).json()['_embedded']['items']
         in_folder_list = []
         for elem in resource:
